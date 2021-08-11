@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SMS_DotnetCoreModelStoreContainer" CdmEntityContainer="SMS_DotnetCoreEntities">
+    <EntitySetMapping Name="Partners">
+      <EntityTypeMapping TypeName="SMS_DotnetCoreModel.Partner">
+        <MappingFragment StoreEntitySet="tblMstPartner">
+          <ScalarProperty Name="MaxWeight" ColumnName="MaxWeight" />
+          <ScalarProperty Name="MinWeight" ColumnName="MinWeight" />
+          <ScalarProperty Name="MaxDimension" ColumnName="MaxDimension" />
+          <ScalarProperty Name="MinDimension" ColumnName="MinDimension" />
+          <ScalarProperty Name="Partnerid" ColumnName="Partnerid" />
+          <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PriceConfigs">
+      <EntityTypeMapping TypeName="SMS_DotnetCoreModel.PriceConfig">
+        <MappingFragment StoreEntitySet="tblMstPriceConfig">
+          <ScalarProperty Name="ExtraPerWeightPrice" ColumnName="ExtraPerWeightPrice" />
+          <ScalarProperty Name="ExtraWeightThreshold" ColumnName="ExtraWeightThreshold" />
+          <ScalarProperty Name="ExtraPerValumePrice" ColumnName="ExtraPerValumePrice" />
+          <ScalarProperty Name="ExtraVolumeThreshold" ColumnName="ExtraVolumeThreshold" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="EndRange" ColumnName="EndRange" />
+          <ScalarProperty Name="StartRange" ColumnName="StartRange" />
+          <ScalarProperty Name="PriceTypeId" ColumnName="PriceTypeId" />
+          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+          <ScalarProperty Name="PriceConfigid" ColumnName="PriceConfigid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PriceTypes">
+      <EntityTypeMapping TypeName="SMS_DotnetCoreModel.PriceType">
+        <MappingFragment StoreEntitySet="tblMstPriceType">
+          <ScalarProperty Name="PriceTypeName" ColumnName="PriceTypeName" />
+          <ScalarProperty Name="PriceTypeid" ColumnName="PriceTypeid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reports">
+      <EntityTypeMapping TypeName="SMS_DotnetCoreModel.Report">
+        <MappingFragment StoreEntitySet="tblMstHistoryFetchedCargoPrice">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FetchDate" ColumnName="FetchDate" />
+          <ScalarProperty Name="PriceForArea" ColumnName="PriceForArea" />
+          <ScalarProperty Name="PriceForWeight" ColumnName="PriceForWeight" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Depth" ColumnName="Depth" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="PartnerIdForAreaPrice" ColumnName="PartnerIdForAreaPrice" />
+          <ScalarProperty Name="PartnerIdForWeightPrice" ColumnName="PartnerIdForWeightPrice" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

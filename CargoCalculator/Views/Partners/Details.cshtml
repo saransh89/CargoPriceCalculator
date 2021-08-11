@@ -1,0 +1,38 @@
+﻿@model CargoCalculator.DBContext.Partner
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Partner</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PartnerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PartnerName)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.MinDimension)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.MaxDimension)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.MinWeight)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.MaxWeight)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Partnerid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

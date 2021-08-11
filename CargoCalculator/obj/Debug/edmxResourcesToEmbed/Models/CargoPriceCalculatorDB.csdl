@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SMS_DotnetCoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblMstPartner">
+    <Key>
+      <PropertyRef Name="Partnerid" />
+    </Key>
+    <Property Name="Partnerid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PartnerName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="SMS_DotnetCoreEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblMstPartners" EntityType="Self.tblMstPartner" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,66 @@
+﻿@model CargoCalculator.DBContext.PriceConfig
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PriceConfig</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StartRange)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartRange)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndRange)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndRange)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        @*<dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblMstPartner.PartnerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblMstPartner.PartnerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblMstPriceType.PriceTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblMstPriceType.PriceTypeName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PriceConfigid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

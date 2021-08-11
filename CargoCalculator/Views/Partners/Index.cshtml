@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CargoCalculator.DBContext.Partner>
+
+@{
+    //ViewBag.Title = "Index";
+}
+
+<h2></h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Parters Name
+        </th>
+        <th>
+            Min Dimension
+        </th>
+        <th>
+            Max Dimension
+        </th>
+        <th>
+            Min Weight
+        </th>
+        <th>
+            Max Weight
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartnerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinDimension)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxDimension)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinWeight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxWeight)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Partnerid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Partnerid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Partnerid })
+        </td>
+    </tr>
+}
+
+</table>

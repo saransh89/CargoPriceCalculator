@@ -1,0 +1,75 @@
+﻿@model IEnumerable<CargoCalculator.DBContext.PriceConfig>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2></h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExtraWeightThreshold)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExtraPerWeightPrice)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.tblMstPartner.PartnerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblMstPriceType.PriceTypeName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartRange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndRange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExtraWeightThreshold)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExtraPerWeightPrice)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.tblMstPartner.PartnerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblMstPriceType.PriceTypeName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PriceConfigid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PriceConfigid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PriceConfigid })
+        </td>
+    </tr>
+}
+
+</table>

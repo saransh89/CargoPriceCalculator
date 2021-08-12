@@ -11,23 +11,33 @@ namespace CargoCalculator.DBContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Report
     {
         public int id { get; set; }
-        public int PartnerIdForWeightPrice { get; set; }
-        public int PartnerIdForAreaPrice { get; set; }
         public Nullable<decimal> Width { get; set; }
         public Nullable<decimal> Height { get; set; }
         public Nullable<decimal> Depth { get; set; }
         public Nullable<decimal> Weight { get; set; }
-        public Nullable<decimal> PriceForWeight { get; set; }
-        public Nullable<decimal> PriceForArea { get; set; }
+        [Display(Name = "Dimention Price")]
+        public Nullable<decimal> DimentionPrice { get; set; }
+        [Display(Name = "Weigh Price")]
+        public Nullable<decimal> weightPrice { get; set; }
+        [Display(Name = "Final Price")]
+        public Nullable<decimal> FinalPrice { get; set; }
+        [Display(Name = "Date")]
         public Nullable<System.DateTime> FetchDate { get; set; }
         public string UserId { get; set; }
+        [Display(Name = "User Name")]
         public string UserName { get; set; }
-    
-        public virtual Partner tblMstPartner { get; set; }
-        public virtual Partner tblMstPartner1 { get; set; }
+        [Display(Name = "Partner Id")]
+        public Nullable<int> PartnerId { get; set; }
+        [Display(Name = "Partner Name")]
+        public string PartnerName { get; set; }
+        [Display(Name = "Extra Weight")]
+        public Nullable<decimal> ExtraWeight { get; set; }
+        [Display(Name = "Extra Weight Price")]
+        public Nullable<decimal> TotalExtraWeightPrice { get; set; }
     }
 }

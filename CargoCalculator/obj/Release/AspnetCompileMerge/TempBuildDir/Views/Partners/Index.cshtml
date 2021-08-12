@@ -14,6 +14,18 @@
         <th>
             Parters Name
         </th>
+        <th>
+            Min Dimension
+        </th>
+        <th>
+            Max Dimension
+        </th>
+        <th>
+            Min Weight
+        </th>
+        <th>
+            Max Weight
+        </th>
         <th></th>
     </tr>
 
@@ -21,6 +33,18 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.PartnerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinDimension)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxDimension)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinWeight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxWeight)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Partnerid }) |

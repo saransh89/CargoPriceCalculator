@@ -41,17 +41,20 @@
     <EntitySetMapping Name="Reports">
       <EntityTypeMapping TypeName="SMS_DotnetCoreModel.Report">
         <MappingFragment StoreEntitySet="tblMstHistoryFetchedCargoPrice">
+          <ScalarProperty Name="TotalExtraWeightPrice" ColumnName="TotalExtraWeightPrice" />
+          <ScalarProperty Name="ExtraWeight" ColumnName="ExtraWeight" />
+          <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="FetchDate" ColumnName="FetchDate" />
-          <ScalarProperty Name="PriceForArea" ColumnName="PriceForArea" />
-          <ScalarProperty Name="PriceForWeight" ColumnName="PriceForWeight" />
+          <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+          <ScalarProperty Name="weightPrice" ColumnName="weightPrice" />
+          <ScalarProperty Name="DimentionPrice" ColumnName="DimentionPrice" />
           <ScalarProperty Name="Weight" ColumnName="Weight" />
           <ScalarProperty Name="Depth" ColumnName="Depth" />
           <ScalarProperty Name="Height" ColumnName="Height" />
           <ScalarProperty Name="Width" ColumnName="Width" />
-          <ScalarProperty Name="PartnerIdForAreaPrice" ColumnName="PartnerIdForAreaPrice" />
-          <ScalarProperty Name="PartnerIdForWeightPrice" ColumnName="PartnerIdForWeightPrice" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

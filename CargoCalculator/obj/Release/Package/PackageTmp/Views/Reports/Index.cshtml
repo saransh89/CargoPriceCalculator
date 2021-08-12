@@ -1,0 +1,110 @@
+﻿@model IEnumerable<CargoCalculator.DBContext.Report>
+
+@{
+    ViewBag.Title = "History";
+}
+
+<br/>
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table" style="margin-top:50px">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Width)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Height)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Depth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.PartnerId)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.PartnerName)
+        </th>                
+        <th>
+            @Html.DisplayNameFor(model => model.FetchDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExtraWeight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DimentionPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.weightPrice)
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.TotalExtraWeightPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinalPrice)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Width)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Height)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Depth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.PartnerId)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.PartnerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FetchDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExtraWeight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DimentionPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.weightPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalExtraWeightPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinalPrice)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>*@
+    </tr>
+}
+
+</table>

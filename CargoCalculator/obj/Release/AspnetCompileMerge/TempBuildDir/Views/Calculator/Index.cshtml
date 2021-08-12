@@ -7,14 +7,20 @@
 
 
 <div class="row">
-    <div class="col-md-2">
+    <br/>
+    <div class="col-md-4">
     </div>
-    <div class="col-md-9">
-      @using (Html.BeginForm("Form2", "Home", FormMethod.Post))
+    <div class="col-md-5">
+    <div class="jumbotron">
+        <h3>Price Calculator</h3>
+    </div>
+        <hr />
+     <div class="alert alert-danger" id="ErrorAlert"></div>
+      @*@using (Html.BeginForm("Form2", "Home", FormMethod.Post))
     {
-        @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()*@
 
-        <div class="form-horizontal">
+        @*<div class="form-horizontal">
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -45,7 +51,6 @@
                     @Html.ValidationMessageFor(model => model.weight, "", new { @class = "text-danger" })
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="button" id="Submit" value="Calculate" onclick="return GetResult();" class="btn btn-primary" />
@@ -53,13 +58,39 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <div id="finalResult"></div>
+                    <div  class="alert alert-success" id="finalResult"></div>
                 </div>
             </div>
-        </div>
-    }
+        </div>*@
+        <form>
+            <div class="form-group">
+                @*<label for="formGroupExampleInput">Example label</label>*@
+                <input type="number"  class="form-control" id="width" width="400" min="0" max="99999" step=".01" maxlength="10" placeholder="Width(cm)" required>
+            </div>
+            <div class="form-group">
+                @*<label for="formGroupExampleInput2">Another label</label>*@
+                <input type="number" class="form-control" id="height" min="0" max="99999" step=".01" maxlength="10" placeholder="Height(cm)" required>
+            </div>
+            <div class="form-group">
+                @*<label for="formGroupExampleInput2">Another label</label>*@
+                <input type="number" class="form-control" id="depth" min="0" max="99999" step=".01" maxlength="10" placeholder="Depth(cm)" required>
+            </div>
+            <div class="form-group">
+                @*<label for="formGroupExampleInput2">Another label</label>*@
+                <input type="number" class="form-control" id="weight" min="0" max="99999" step=".01" maxlength="10" placeholder="Weight(kg)" required>
+            </div>
+            <div class="form-group">                
+                 <button id="Submit" value="Calculate"  class="btn btn-primary" onclick='return false;'>Calculate</button>
+                 <button id="Reset" value="Reset" class="btn btn-primary" onclick='return false;'>Reset</button>
+            </div>
+            <div class="form-group">
+                  <div class="alert alert-success" id="finalResult"></div>  
+            </div>
+        </form>
+
+      @*}*@
     </div>
-    <div class="col-md-1">
+    <div class="col-md-3">
     </div>
 </div>
 @section Scripts {
@@ -67,31 +98,134 @@
     @Scripts.Render("~/bundles/jqueryval") @*For validate and validate-unobtrusive*@
 
     <script type="text/javascript">
-        function GetResult() {
-            //var res = validate();
-            //if (res == false) {
-            //    return false;
-            //}
-            var Obj = {
-                Width: $('#width').val(),
-                Height: $('#height').val(),
-                Depth: $('#depth').val(),
-                Weight: $('#weight').val()
-            };
-            $.ajax({
-                url: "/Calculator/GetCalculatedResult",
-                data: JSON.stringify(Obj),
-                type: "POST",
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                success: function (result) {
-                    $('#finalResult').text(result.FinalPrice);
-                },
-                error: function (errormessage) {
-                    alert(errormessage.responseText);
+        // A $( document ).ready() block.
+        $(document).ready(function () {
+            debugger;
+            var isErrorMsg = false;
+            var errorMsg = '';
+
+            $("#ErrorAlert").hide();
+            $('#finalResult').hide();
+
+
+            function IsValidInput(val) {
+                if(val != '' && val != undefined && val != null )
+                    return true;
+                else
+                    return false;
+            }
+
+            function Success(msg) {
+                $("#ErrorAlert").hide();
+                $('#finalResult').show(200);
+                $('#finalResult').text(msg);
+
+            }
+            function Error(msg) {
+                $("#ErrorAlert").show(200);
+                $('#finalResult').hide();
+                $("#ErrorAlert").text(msg);
+
+            }
+
+            function ResetDefault() {
+                debugger;
+                $('#width').val('');
+                $('#height').val('');
+                $('#depth').val('');
+                $('#weight').val('');
+                $('#finalResult').hide();
+                $('#ErrorAlert').hide();
+            }
+
+            function IsInputDataValidForBoundary(data) {
+                debugger;
+                if (data < 0) {
+                    errorMsg = 'Value can not be less than zero';
+                    Error(errorMsg);
+                    return false;
                 }
+            }
+
+            function validate() {
+                debugger;
+                if (!(IsValidInput($('#width').val()) && IsValidInput($('#height').val()) && 
+                    IsValidInput($('#depth').val()) && IsValidInput($('#weight').val())))
+                 {
+                         errorMsg = 'Input cannot be null or empty';
+                        return false;
+                 }
+
+                //All field Basic Value data check
+                IsInputDataValidForBoundary($('#width').val()); IsInputDataValidForBoundary($('#height').val());
+                IsInputDataValidForBoundary($('#depth').val()); IsInputDataValidForBoundary($('#weight').val())
+
+                //Max Maximun Dimension
+                var w = parseFloat($('#width').val());
+                var h = parseFloat($('#height').val());
+                var d = parseFloat($('#depth').val());
+                var wgt = parseFloat($('#weight').val());
+                var Dimension = w * h * d;
+                if(Dimension >= 999999)
+                {
+                    errorMsg = 'Demension cannot be greater 999999(cm*cm*cm)(Max).';
+                    return false;
+                }
+
+                if (wgt > 100000) {
+                    errorMsg = 'Weight cannot be greater 100000(kg)(Max).';
+                    return false;
+                }
+
+
+                //Max Weight
+            }
+            function GetResult() {
+                var res = validate();
+                if (res == false) {
+                    $("#ErrorAlert").show(500);
+                    $("#ErrorAlert").text(errorMsg);
+                    return;
+                }
+                var Obj = {
+                    Width: $('#width').val(),
+                    Height: $('#height').val(),
+                    Depth: $('#depth').val(),
+                    Weight: $('#weight').val()
+                };
+                $.ajax({
+                    url: "/Calculator/GetCalculatedResult",
+                    data: JSON.stringify(Obj),
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        debugger;
+                        if (result.Status == 1)
+                            Success(result.FinalPrice + ' ' + result.Msg);
+                        else
+                            Error(result.Msg);
+                    
+                    },
+                    error: function (errormessage) {
+                   
+                    }
+                });
+            }
+            
+
+            //Button Calculate Button Cliecked 
+            $("#Reset").click(function () {
+                ResetDefault();
+                return;
             });
-        }
+
+            //Button Reset Button Cliecked 
+            $("#Submit").click(function () {
+                GetResult();
+                return;
+            });
+        });
     </script>
 }
 

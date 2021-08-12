@@ -11,19 +11,28 @@ namespace CargoCalculator.DBContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PriceConfig
     {
         public int PriceConfigid { get; set; }
         public int PartnerId { get; set; }
         public int PriceTypeId { get; set; }
+
+        [Display(Name = "Start Range")]
         public Nullable<decimal> StartRange { get; set; }
+        [Display(Name = "End Range")]
         public Nullable<decimal> EndRange { get; set; }
+        [Display(Name = "Price")]
         public Nullable<decimal> Price { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        [Display(Name = "ExtraVolumeThreshold")]
         public Nullable<decimal> ExtraVolumeThreshold { get; set; }
+        [Display(Name = "ExtraVolumeThreshold")]
         public Nullable<decimal> ExtraPerValumePrice { get; set; }
+        [Display(Name = "Extra Weight Threshold")]
         public Nullable<decimal> ExtraWeightThreshold { get; set; }
+        [Display(Name = "Extra Weight Price(per/Kg)")]
         public Nullable<decimal> ExtraPerWeightPrice { get; set; }
     
         public virtual Partner tblMstPartner { get; set; }

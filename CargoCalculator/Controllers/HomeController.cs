@@ -12,7 +12,8 @@ namespace CargoCalculator.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            ///return View();
+            return  RedirectToAction("Index", "Calculator");
         }
 
         public ActionResult About()

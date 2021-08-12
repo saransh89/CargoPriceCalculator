@@ -25,24 +25,27 @@ namespace CargoCalculator.DBContext
                          new SqlParameter("@height", calculatorModel.height),
                          new SqlParameter("@depth", calculatorModel.depth),
                          new SqlParameter("@weight", calculatorModel.weight),
-                         new SqlParameter("@UserId", calculatorModel.UserId)).FirstOrDefault();
+                         new SqlParameter("@UserId", calculatorModel.UserId == null ? (object)DBNull.Value : calculatorModel.UserId)).FirstOrDefault();
                 }
             }
             catch (Exception e)
             {
+                calculationResult.FinalPrice = 0;
+                calculationResult.Status = 0;
+                calculationResult.Msg = "All fields are required with valid decimal value. Ex: 10.33";
 
             }
             return calculationResult;
         }
 
-        public List<ReportExtension> GetReportResult(DateTime? fromDate = null, DateTime? toDate = null, string UserId = "")
+        public List<Report> GetReportResult(DateTime? fromDate = null, DateTime? toDate = null, string UserId = "")
         {
-            List<ReportExtension> reportResult = new List<ReportExtension>();
+            List<Report> reportResult = new List<Report>();
             try
             {
                 using (SMS_DotnetCoreEntities db = new SMS_DotnetCoreEntities())
                 {
-                    reportResult = db.Database.SqlQuery<ReportExtension>("SpGetCalculationReport @fromDate, @toDate, @UserId",
+                    reportResult = db.Database.SqlQuery<Report>("SpGetCalculationReport @fromDate, @toDate, @UserId",
                          new SqlParameter("@fromDate", Convert.ToString(fromDate)),
                          new SqlParameter("@toDate", Convert.ToString(toDate)),
                          new SqlParameter("@UserId", UserId)).ToList();

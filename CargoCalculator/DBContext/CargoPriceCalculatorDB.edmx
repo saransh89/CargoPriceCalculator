@@ -10,17 +10,20 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PartnerIdForWeightPrice" Type="int" Nullable="false" />
-          <Property Name="PartnerIdForAreaPrice" Type="int" Nullable="false" />
           <Property Name="Width" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Height" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Depth" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Weight" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="PriceForWeight" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="PriceForArea" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="DimentionPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="weightPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="FinalPrice" Type="decimal" Precision="10" Scale="2" />
           <Property Name="FetchDate" Type="datetime" />
-          <Property Name="UserId" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="PartnerId" Type="int" />
+          <Property Name="PartnerName" Type="nvarchar(max)" />
+          <Property Name="ExtraWeight" Type="decimal" Precision="10" Scale="3" />
+          <Property Name="TotalExtraWeightPrice" Type="decimal" Precision="10" Scale="3" />
         </EntityType>
         <EntityType Name="tblMstPartner">
           <Key>
@@ -56,30 +59,6 @@
           <Property Name="PriceTypeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PriceTypeName" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
-        <Association Name="FK__tblMstHis__Partn__412EB0B6">
-          <End Role="tblMstPartner" Type="Self.tblMstPartner" Multiplicity="1" />
-          <End Role="tblMstHistoryFetchedCargoPrice" Type="Self.tblMstHistoryFetchedCargoPrice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblMstPartner">
-              <PropertyRef Name="Partnerid" />
-            </Principal>
-            <Dependent Role="tblMstHistoryFetchedCargoPrice">
-              <PropertyRef Name="PartnerIdForWeightPrice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblMstHis__Partn__4222D4EF">
-          <End Role="tblMstPartner" Type="Self.tblMstPartner" Multiplicity="1" />
-          <End Role="tblMstHistoryFetchedCargoPrice" Type="Self.tblMstHistoryFetchedCargoPrice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblMstPartner">
-              <PropertyRef Name="Partnerid" />
-            </Principal>
-            <Dependent Role="tblMstHistoryFetchedCargoPrice">
-              <PropertyRef Name="PartnerIdForAreaPrice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tblMstPri__Partn__38996AB5">
           <End Role="tblMstPartner" Type="Self.tblMstPartner" Multiplicity="1" />
           <End Role="tblMstPriceConfig" Type="Self.tblMstPriceConfig" Multiplicity="*" />
@@ -109,14 +88,6 @@
           <EntitySet Name="tblMstPartner" EntityType="Self.tblMstPartner" Schema="SMS_DotnetCore" store:Type="Tables" />
           <EntitySet Name="tblMstPriceConfig" EntityType="Self.tblMstPriceConfig" Schema="SMS_DotnetCore" store:Type="Tables" />
           <EntitySet Name="tblMstPriceType" EntityType="Self.tblMstPriceType" Schema="SMS_DotnetCore" store:Type="Tables" />
-          <AssociationSet Name="FK__tblMstHis__Partn__412EB0B6" Association="Self.FK__tblMstHis__Partn__412EB0B6">
-            <End Role="tblMstPartner" EntitySet="tblMstPartner" />
-            <End Role="tblMstHistoryFetchedCargoPrice" EntitySet="tblMstHistoryFetchedCargoPrice" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblMstHis__Partn__4222D4EF" Association="Self.FK__tblMstHis__Partn__4222D4EF">
-            <End Role="tblMstPartner" EntitySet="tblMstPartner" />
-            <End Role="tblMstHistoryFetchedCargoPrice" EntitySet="tblMstHistoryFetchedCargoPrice" />
-          </AssociationSet>
           <AssociationSet Name="FK__tblMstPri__Partn__38996AB5" Association="Self.FK__tblMstPri__Partn__38996AB5">
             <End Role="tblMstPartner" EntitySet="tblMstPartner" />
             <End Role="tblMstPriceConfig" EntitySet="tblMstPriceConfig" />
@@ -137,8 +108,6 @@
           <Property Name="Partnerid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PartnerName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="tblMstPriceConfigs" Relationship="SMS_DotnetCoreModel.FK__tblMstPri__Partn__38996AB5" FromRole="Partner" ToRole="tblMstPriceConfig" />
-          <NavigationProperty Name="tblMstHistoryFetchedCargoPrices" Relationship="SMS_DotnetCoreModel.FK__tblMstHis__Partn__412EB0B6" FromRole="Partner" ToRole="tblMstHistoryFetchedCargoPrice" />
-          <NavigationProperty Name="tblMstHistoryFetchedCargoPrices1" Relationship="SMS_DotnetCoreModel.FK__tblMstHis__Partn__4222D4EF" FromRole="Partner" ToRole="tblMstHistoryFetchedCargoPrice" />
           <Property Name="MinDimension" Type="Decimal" Precision="10" Scale="3" />
           <Property Name="MaxDimension" Type="Decimal" Precision="10" Scale="3" />
           <Property Name="MinWeight" Type="Decimal" Precision="10" Scale="3" />
@@ -157,15 +126,7 @@
             <End Role="tblMstPriceConfig" EntitySet="PriceConfigs" />
           </AssociationSet>
           <EntitySet Name="Reports" EntityType="SMS_DotnetCoreModel.Report" />
-          <AssociationSet Name="FK__tblMstHis__Partn__412EB0B6" Association="SMS_DotnetCoreModel.FK__tblMstHis__Partn__412EB0B6">
-            <End Role="Partner" EntitySet="Partners" />
-            <End Role="tblMstHistoryFetchedCargoPrice" EntitySet="Reports" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblMstHis__Partn__4222D4EF" Association="SMS_DotnetCoreModel.FK__tblMstHis__Partn__4222D4EF">
-            <End Role="Partner" EntitySet="Partners" />
-            <End Role="tblMstHistoryFetchedCargoPrice" EntitySet="Reports" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="PriceConfig">
           <Key>
             <PropertyRef Name="PriceConfigid" />
@@ -221,45 +182,22 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PartnerIdForWeightPrice" Type="Int32" Nullable="false" />
-          <Property Name="PartnerIdForAreaPrice" Type="Int32" Nullable="false" />
           <Property Name="Width" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Height" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Depth" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Weight" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="PriceForWeight" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="PriceForArea" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DimentionPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="weightPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="FinalPrice" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="FetchDate" Type="DateTime" Precision="3" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tblMstPartner" Relationship="SMS_DotnetCoreModel.FK__tblMstHis__Partn__412EB0B6" FromRole="tblMstHistoryFetchedCargoPrice" ToRole="Partner" />
-          <NavigationProperty Name="tblMstPartner1" Relationship="SMS_DotnetCoreModel.FK__tblMstHis__Partn__4222D4EF" FromRole="tblMstHistoryFetchedCargoPrice" ToRole="Partner" />
+          <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerId" Type="Int32" />
+          <Property Name="PartnerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExtraWeight" Type="Decimal" Precision="10" Scale="3" />
+          <Property Name="TotalExtraWeightPrice" Type="Decimal" Precision="10" Scale="3" />
         </EntityType>
-        <Association Name="FK__tblMstHis__Partn__412EB0B6">
-          <End Type="SMS_DotnetCoreModel.Partner" Role="Partner" Multiplicity="1" />
-          <End Type="SMS_DotnetCoreModel.Report" Role="tblMstHistoryFetchedCargoPrice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Partner">
-              <PropertyRef Name="Partnerid" />
-            </Principal>
-            <Dependent Role="tblMstHistoryFetchedCargoPrice">
-              <PropertyRef Name="PartnerIdForWeightPrice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblMstHis__Partn__4222D4EF">
-          <End Type="SMS_DotnetCoreModel.Partner" Role="Partner" Multiplicity="1" />
-          <End Type="SMS_DotnetCoreModel.Report" Role="tblMstHistoryFetchedCargoPrice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Partner">
-              <PropertyRef Name="Partnerid" />
-            </Principal>
-            <Dependent Role="tblMstHistoryFetchedCargoPrice">
-              <PropertyRef Name="PartnerIdForAreaPrice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -305,17 +243,20 @@
           <EntitySetMapping Name="Reports">
             <EntityTypeMapping TypeName="SMS_DotnetCoreModel.Report">
               <MappingFragment StoreEntitySet="tblMstHistoryFetchedCargoPrice">
+                <ScalarProperty Name="TotalExtraWeightPrice" ColumnName="TotalExtraWeightPrice" />
+                <ScalarProperty Name="ExtraWeight" ColumnName="ExtraWeight" />
+                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="FetchDate" ColumnName="FetchDate" />
-                <ScalarProperty Name="PriceForArea" ColumnName="PriceForArea" />
-                <ScalarProperty Name="PriceForWeight" ColumnName="PriceForWeight" />
+                <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+                <ScalarProperty Name="weightPrice" ColumnName="weightPrice" />
+                <ScalarProperty Name="DimentionPrice" ColumnName="DimentionPrice" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="Depth" ColumnName="Depth" />
                 <ScalarProperty Name="Height" ColumnName="Height" />
                 <ScalarProperty Name="Width" ColumnName="Width" />
-                <ScalarProperty Name="PartnerIdForAreaPrice" ColumnName="PartnerIdForAreaPrice" />
-                <ScalarProperty Name="PartnerIdForWeightPrice" ColumnName="PartnerIdForWeightPrice" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

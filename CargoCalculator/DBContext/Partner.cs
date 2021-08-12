@@ -11,29 +11,30 @@ namespace CargoCalculator.DBContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Partner
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Partner()
         {
             this.tblMstPriceConfigs = new HashSet<PriceConfig>();
-            this.tblMstHistoryFetchedCargoPrices = new HashSet<Report>();
-            this.tblMstHistoryFetchedCargoPrices1 = new HashSet<Report>();
         }
-    
+
+        [Display(Name = "Partner")]
         public int Partnerid { get; set; }
+        [Display(Name = "Name")]
         public string PartnerName { get; set; }
+        [Display(Name = "Min Dimension")]
         public Nullable<decimal> MinDimension { get; set; }
+        [Display(Name = "Max Dimension")]
         public Nullable<decimal> MaxDimension { get; set; }
+        [Display(Name = "Min Weight")]
         public Nullable<decimal> MinWeight { get; set; }
+        [Display(Name = "Max Weight")]
         public Nullable<decimal> MaxWeight { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PriceConfig> tblMstPriceConfigs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Report> tblMstHistoryFetchedCargoPrices { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Report> tblMstHistoryFetchedCargoPrices1 { get; set; }
     }
 }

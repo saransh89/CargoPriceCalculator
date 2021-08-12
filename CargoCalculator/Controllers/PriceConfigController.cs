@@ -10,6 +10,7 @@ using CargoCalculator.DBContext;
 
 namespace CargoCalculator.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PriceConfigController : Controller
     {
         private SMS_DotnetCoreEntities db = new SMS_DotnetCoreEntities();
